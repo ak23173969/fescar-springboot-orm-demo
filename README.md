@@ -1,5 +1,4 @@
 ## single desc
-## author wanpeng
 ```
 env:
     fescar-server 0.1.2 
