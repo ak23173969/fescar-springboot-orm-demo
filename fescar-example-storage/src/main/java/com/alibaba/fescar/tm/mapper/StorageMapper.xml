@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.alibaba.fescar.tm.mapper.StorageMapper">
+	
+	<delete id="delele">
+		delete from storage_tbl where commodity_code = #{commodity_code}
+	</delete>
+	
+	<insert id="add">
+		insert into storage_tbl(commodity_code, count) values (#{commodity_code}, #{count})
+	</insert>
+	
+	<update id="updateCount">
+		update storage_tbl set count = count - #{count} where commodity_code = #{commodity_code}
+	</update>
+	
+</mapper>

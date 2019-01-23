@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration>
+	
+	<property name="base_path"  value="/logs/hotcomm/dubbo/community/model-system/"/>
+	<property name="console_path" value="${base_path}/console" />
+	<property name="service_path" value="${base_path}/service" />
+	<property name="error_path"   value="${base_path}/error" />	
+	<property name="logLevel" value="debug" />	
+	
+	
+	<!-- 控制台日志输入 -->
+	<appender name="console_sdtout" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="console_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${console_path}</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${console_path}.%d{yyyy-MM-dd} -- %i.log</fileNamePattern>
+			<maxFileSize>100MB</maxFileSize>
+			<maxHistory>60</maxHistory>
+			<totalSizeCap>20GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder>
+		<pattern>%d %p [%t] [%F:%L] %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 业务正常日志 -->
+	<appender name="service_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${service_path}</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${service_path}.%d{yyyy-MM-dd}-- %i.log</fileNamePattern>
+			<maxFileSize>100MB</maxFileSize>
+			<maxHistory>60</maxHistory>
+			<totalSizeCap>20GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder>
+		<pattern>%d %p [%t] [%F:%L] %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 业务ERROR日志 -->
+	<appender name="error_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${error_path}</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${error_path}.%d{yyyy-MM-dd}-- %i.log</fileNamePattern>
+			<maxFileSize>100MB</maxFileSize>
+			<maxHistory>60</maxHistory>
+			<totalSizeCap>20GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d %p [%t] [%F:%L] %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	
+	<logger level="info" additivity="false"  name="service_logger"  >
+		<appender-ref ref="service_file" />
+		<appender-ref ref="console_file" />	
+		<appender-ref ref="console_sdtout" />
+	</logger>
+	
+	<logger level="error" additivity="false"  name="error_logger"  >
+	    <appender-ref ref="console_file" />
+		<appender-ref ref="error_file" />
+		<appender-ref ref="console_sdtout" />
+	</logger>
+	
+	<root level="info"  >
+		<appender-ref ref="console_sdtout" />
+		<appender-ref ref="console_file" />
+	</root>
+	
+	<logger name="com.alibaba.fescar.tm.mapper" level="${logLevel}"/>
+
+</configuration>
