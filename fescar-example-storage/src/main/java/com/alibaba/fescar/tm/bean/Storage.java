@@ -1,5 +1,7 @@
 package com.alibaba.fescar.tm.bean;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -10,7 +12,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "storage_tbl")
 @Data
 @NoArgsConstructor
-public class Storage {
+public class Storage implements Serializable {
+
+	private static final long serialVersionUID = -9182696929279926692L;
 
 	@Id
 	@Column(name = "id")
