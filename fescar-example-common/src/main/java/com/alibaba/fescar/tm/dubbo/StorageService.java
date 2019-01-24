@@ -27,4 +27,6 @@ public interface StorageService {
     void deduct(String commodityCode, int count);
     
     void checkTransient(String commodityCode, int count);
+
+    public void insertDuct(String commodityCode, String count);
 }

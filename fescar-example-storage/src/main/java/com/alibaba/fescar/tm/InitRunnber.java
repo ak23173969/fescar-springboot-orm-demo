@@ -6,6 +6,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fescar.tm.bean.Storage;
 import com.alibaba.fescar.tm.dubbo.StorageService;
 import com.alibaba.fescar.tm.mapper.StorageMapper;
 
@@ -28,13 +29,15 @@ public class InitRunnber implements ApplicationRunner {
 	
 	@Override
 	public void run(ApplicationArguments applicationArguments) throws Exception {
-		storageMapper.delele("C00321");
-		storageMapper.add("C00321", 100);
-		try {
-			storageService.checkTransient("C00321", 2);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		storageService.insertDuct("C00321", "ss");
+		//storageMapper.insertSelective(new Storage("C00321", "ss"));
+//		storageMapper.delele("C00321");
+//		storageMapper.add("C00321", 100);
+//		try {
+//			storageService.checkTransient("C00321", 2);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 
 }

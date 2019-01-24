@@ -25,6 +25,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fescar.core.context.RootContext;
 import com.alibaba.fescar.spring.annotation.GlobalTransactional;
+import com.alibaba.fescar.tm.bean.Storage;
 import com.alibaba.fescar.tm.dubbo.OrderService;
 import com.alibaba.fescar.tm.dubbo.StorageService;
 import com.alibaba.fescar.tm.mapper.StorageMapper;
@@ -61,6 +62,12 @@ public class StorageServiceImpl implements StorageService {
 		this.deduct(commodityCode, count);
 		this.orderService.create("U100001", "F001", 1);
 	}
-    
-    
+
+	@Override
+	@GlobalTransactional(name="StorageService.insertDuct",timeoutMills=60000)
+	public void insertDuct(String commodityCode, String count) {
+		storageMapper.deleteByPrimaryKey(73);
+		storageMapper.insertSelective(new Storage(commodityCode, count));
+	}
+
 }
